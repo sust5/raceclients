@@ -28,26 +28,21 @@ $this->load->view('admin/comman/header');
 						<form id="savenotifi" name='Notification' enctype="multipart/form-data" action="">
 							<div class="form-group">
 								<label for="input-1">Title</label>
-								<input type="text" required  class="form-control" name="title" id="input-1" value="title" placeholder="Enter title">
+								<input type="text" required  class="form-control" name="title" id="input-1" value="" placeholder="Enter title">
 							</div>
 
 							<div class="form-group">
 								<label for="input-2">Message</label>
-								<textarea name="body" value="msg" class="form-control"></textarea>
+								<textarea name="body" value="" class="form-control"></textarea>
 							</div>
-
-							
-						<!-- 	<div class="form-group">
-								<label for="input-1">Image (Optional)</label>
-								<input type="file" required  class="form-control" name="thumbnail" id="input-1" placeholder="Enter Video Name">
-								<p class="noteMsg">Note: Image Size Minimum - 512x256 & Maximum - 2880x1440</p>
-							</div> -->
 
 							<div class="form-group">
 								<label for="input-2">Select User</label>
 								<!-- DropDown -->
 								<select name="select_user" required  class="form-control">
-									<option value="0">All User</option>
+									<option value="-1">Select user</option>
+																			<option required value="0">All User</option>
+
 									<?php $i=1;foreach($userList as $user){ ?>
 										<option required value="<?php echo $user->id; ?>"><?php echo $user->fullname; ?></option>
 										<?php $i++;
@@ -56,7 +51,7 @@ $this->load->view('admin/comman/header');
 							</div>
 
 							<div class="form-group">
-								<button type="button" onclick="saveNotification()" class="btn btn-primary shadow-primary px-5"> Save</button>
+								<button type="button" onclick="saveNotification()" class="btn btn-primary shadow-primary px-5"> Send Notification</button>
 							</div>
 						</form>
 					</div>
@@ -73,6 +68,26 @@ $this->load->view('admin/comman/header');
 		?>
 		<script>
 			function saveNotification(){
+				//to check if the  title is empty
+				 let x = document.forms["Notification"]["title"].value;
+  		if (x=="") {
+    alert("Please enter title");
+    return false;
+  		}
+  		//to check if the msg is empty
+  		 let y = document.forms["Notification"]["body"].value;
+  		if (y=="") {
+    alert("Please  enter body");
+    return false;
+  		}
+  		//to check if the client is selected
+  		 let z = document.forms["Notification"]["select_user"].value;
+  		if (z<=0) {
+    alert("Please select the client");
+    return false;
+  		}
+
+
 				$("#dvloader").show();
 				var formData = new FormData($("#savenotifi")[0]);
 				$.ajax({
