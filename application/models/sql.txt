@@ -1,0 +1,45 @@
+// vendor details
+SELECT YEAR(Date) AS Year,MONTH(Date) AS Month,SUM(amount) AS Total_amount, COUNT(DISTINCT bill_id) as Total_transaction FROM bills_details Right join vendor_transaction on bills_details.bill_id=vendor_transaction.bill_details_id WHERE vendor_id=526 GROUP BY YEAR(Date),MONTH(Date)
+
+// join all bill details
+SELECT * FROM `bills_details` JOIN bill_image ON bills_details.bill_id=bill_image.bill_details_id JOIN vendor_transaction ON bills_details.bill_id = vendor_transaction.bill_details_id
+
+
+//client installment
+SELECT fullname as name, id_total_amt AS total_amt, id_paid_amt as paid_installment ,id_total_installment as total_installment,id_paid_installment as paid_installment, w_work_title as workName FROM e_user JOIN installment_details ON installment_details.id_user_id = e_user.id JOIN work ON work.w_user_id = e_user.id where e_user.account_type =1 GROUP BY name ;
+
+
+<table  id="default-datatable" class="table table-bordered">
+  <thead>
+      <tr>
+          <th>id</th>
+          <th>name</th>
+          <th>paid_installment</th>
+          <th>total_amt</th>
+          <th> total_installment</th>
+          <th>workName</th>
+      </tr>
+  </thead>
+  <tbody>
+    <?php  $i=1;foreach($installmentInfo as $use){ ?>
+      <tr>
+        <td><?php echo $i;?></td>
+        <td><?php echo $use->name; ?></td>
+        <td><?php echo $use->paid_installment; ?></td>
+        <td><?php echo $use->total_amt;?></td>
+        <td><?php echo $use->total_installment; ?></td>
+        <td><?php echo $use->workName; ?></td>
+      </tr>
+      <?php $i++;} ?>
+  </tbody>
+  <tfoot>
+      <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>paid_installment</th>
+        <th>total_amt</th>
+        <th> total_installment</th>
+        <th>workName</th>
+      </tr>
+  </tfoot>
+</table>
