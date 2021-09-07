@@ -41,7 +41,7 @@ $this->load->view('admin/comman/header');
 								<!-- DropDown -->
 								<select name="select_user" required  class="form-control">
 									<option value="-1">Select user</option>
-																			<option required value="0">All User</option>
+									<option required value="0"style>All User</option>
 
 									<?php $i=1;foreach($userList as $user){ ?>
 										<option required value="<?php echo $user->id; ?>"><?php echo $user->fullname; ?></option>
@@ -82,7 +82,7 @@ $this->load->view('admin/comman/header');
   		}
   		//to check if the client is selected
   		 let z = document.forms["Notification"]["select_user"].value;
-  		if (z<=0) {
+  		if (z=="-1") {
     alert("Please select the client");
     return false;
   		}
