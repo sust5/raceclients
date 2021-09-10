@@ -33,7 +33,7 @@ $this->load->view('admin/comman/header');
 
 							<div class="form-group">
 								<label for="input-2">Message</label>
-								<textarea name="body" value="" class="form-control"></textarea>
+								<textarea name="body" value="" placeholder="Enter your Message" class="form-control"></textarea>
 							</div>
 
 							<div class="form-group">

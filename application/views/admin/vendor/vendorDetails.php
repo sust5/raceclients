@@ -39,6 +39,7 @@ $this->load->view('admin/comman/header');
                 <th>Id</th>
                 <th>Name</th>
                 <th>Date</th>
+                <th>currency </th>
                 <th>Amount</th>
                 <th>delete</th>
               </tr>
@@ -47,10 +48,11 @@ $this->load->view('admin/comman/header');
              <?php $i=1;foreach($vlist as $val){ ?>
               <tr>
                 <td><?php echo $val->id; ?></td>
-                <td> <?php echo $val->fullname; ?></td>
-                  <td> <?php echo $val->date; ?></td>
+                <td> <?php echo $val->fullname; ?>
+                  <td> <?php echo $val->date; ?>
                 <td> <?php echo $val->currency; ?>
-                 <?php echo $val->amount; ?></td>
+                <td> <?php echo $val->amount; ?>
+               <!--  <td><?php echo $vid->b_date; ?></td> -->
               <td><a href="javaScript:void(0)" onclick="delete_record('<?php echo $val->id; ?>','vendor_payment')">Delete</a></td>
             </tr>
             <?php $i++;} ?>
@@ -61,6 +63,7 @@ $this->load->view('admin/comman/header');
                 <th>Id</th>
                 <th>Name</th>
                 <th>Date</th>
+                <th>currency </th>
                 <th>Amount</th>
                 <th>delete</th>
             </tr>
@@ -81,7 +84,7 @@ $this->load->view('admin/comman/footerpage');
 <script>
 	$(document).ready(function() {
       //Default data table
-      $('#default-datatable').DataTable();
+      $('#default-datatable').DataTable().sort().reverse() ;
     } );
 
   </script>

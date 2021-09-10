@@ -92,6 +92,8 @@ $this->load->view('admin/comman/header');
 
 	<script>
 		$(document).ready(function() {
-			$('#default-datatable').DataTable();
+			$('#default-datatable').DataTable(
+				 {"order": [[ 0, "desc" ]]
+				 				 }) ;
 		} );
 	</script>

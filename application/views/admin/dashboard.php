@@ -62,6 +62,26 @@ $this->load->view('admin/comman/header');
 
         </div><!--End Row-->
 
+        <!-- new row-->
+ <div class="row mt-4">
+      <div class="col-12 col-lg-6 col-xl-3">
+        <div class="card gradient-forest">
+          <div class="card-body">
+            <div class="media">
+              <span class="text-white" style="font-size:30px;"><i class="fa fa-copy"></i></span>
+              <div class="media-body text-left" style="margin-left: 10px">
+                <a href="<?php echo base_url();?>index.php/admin/billsDetails">
+                  <h4 class="text-white"><?php echo $totalTodayTransaction;?></h4>
+                  <h5 class="text-white">Todays bill</<h5>
+                </div>
+                <div class="align-self-center"><span id="dash-chart-1"></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        </div><!--End Row-->
+
     
 
         </div><!--End content-wrapper-->

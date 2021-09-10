@@ -66,14 +66,16 @@ class Adminmodel extends CI_Model{
 		return $this->db->query($sql)->result();
 
 	}
+public function todayTransaction(){
+		$sql = "SELECT bill_id FROM `bills_details` WHERE DATE(`date`) = CURDATE();";
+		return $this->db->query($sql)->result();
+	}
 
 
 	public function workUpdateList(){
 		$sql = "SELECT id,u_id, fullname, w_work_title, u_title as title FROM `work_updates` JOIN e_user ON e_user.id = work_updates.user_id JOIN work ON work.w_user_id =e_user.id GROUP BY u_id";
 		return $this->db->query($sql)->result();
 	}
-
-
 
 	public function galleryList(){
 		$sql = "SELECT g_id as id,w_id,g_title as title, g_url as link,g_date as cur_date, w_work_title as work FROM gallery  join work on gallery.g_work_id=work.w_id ;";
@@ -339,10 +341,47 @@ class Adminmodel extends CI_Model{
 
 	public function vendor_payment_list(){
 		$sql = "SELECT vp_id as id,date,fullname, currency, amount FROM `vendor_payment` JOIN e_user ON e_user.id =vendor_payment.user_id";
+
 		return $this->db->query($sql)->result();
 	}
 	public function billsDetailsList(){
-		$sql = "SELECT bill_id,vendor_id,fullname,sum(amount) as amount,bills_details.date,bill_url FROM `bills_details` JOIN bills_transaction ON bills_transaction.bill_details_id =bills_details.bill_id JOIN e_user ON e_user.id=bills_details.vendor_id JOIN bill_image ON bill_image.bill_details_id=bills_details.bill_id GROUP BY vendor_id,bill_url";
+		// $this->db->select("bill_id,vendor_id,fullname,bills_details.date,bill_url");
+		// $this->db->from("bills_details");
+		// $this->db->join('bills_transaction', 'bills_transaction.bill_details_id=bills_details.bill_id');
+		// $this->db->join('e_user', 'e_user.id =bills_details.vendor_id');
+		// $this->db->join('bill_image', 'bill_image.bill_details_id=bills_details.bill_id');
+		// // $this->db->group_by("vendor_id");
+		// $this->db->order_by("bill_id","DESC");
+		// $q = $this->db->get();
+		// return $q->result();
+
+	// $this->db->select("bill_id,vendor_id,fullname,sum(amount) as amount,bills_details.date,bill_url");
+	// 	$this->db->from("bills_details");
+	// 	$this->db->join('bills_transaction', 'bills_transaction.bill_details_id=bills_details.bill_id');
+	// 	$this->db->join('e_user', 'e_user.id =bills_details.vendor_id');
+	// 	$this->db->join('bill_image', 'bill_image.bill_details_id=bills_details.bill_id');
+	// 	// $this->db->group_by("vendor_id");
+	// 	// $this->db->order_by("bill_id","DESC");
+	// 	$q = $this->db->get();
+	// 	return $q->result();
+
+
+
+		// $sql = "SELECT bill_id,vendor_id,fullname,sum(amount) as amount,bills_details.date as date,bill_url
+		//  FROM `bills_details` 
+		//  JOIN bills_transaction ON bills_transaction.bill_details_id =bills_details.bill_id 
+		//  JOIN e_user ON e_user.id=bills_details.vendor_id 
+		//  JOIN bill_image ON bill_image.bill_details_id=bills_details.bill_id 
+		// GROUP BY vendor_id,bill_url 
+		// order by date desc
+		//  ";
+
+
+			$sql = "
+			select vendor_id,fullname,bills_details.bill_id, sum(amount) as amount ,bills_details.date ,bill_url FROM `bills_transaction` JOIN bills_details ON bills_details.bill_id=bills_transaction.bill_details_id JOIN e_user ON e_user.id=bills_details.vendor_id JOIN bill_image ON bill_image.bill_details_id=bills_details.bill_id GROUP BY bills_transaction.bill_details_id order by bills_details.date desc
+
+
+		";
 		return $this->db->query($sql)->result();
 	}
 
@@ -390,8 +429,6 @@ class Adminmodel extends CI_Model{
 		$this->db->where($where);
 		$q = $this->db->get();
 		return $q->result();
-
-
 	}
 
 	public function userlist_by_where($where){

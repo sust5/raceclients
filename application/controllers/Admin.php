@@ -59,6 +59,11 @@ class Admin extends CI_Controller{
 		$result = $this->Adminmodel->totalVendor($where);
 		$data['totalVendor']=sizeof($result);
 
+		// Total Transaction today
+		$result = $this->Adminmodel->todayTransaction();
+		$data['totalTodayTransaction']=sizeof($result);
+
+
 
 		$this->load->view("admin/dashboard", $data);
 
