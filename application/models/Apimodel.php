@@ -82,6 +82,12 @@ class apimodel extends CI_Model{
     return $this->db->query($sql)->result();
 
 	}
+	
+	public function carousel(){
+		  $sql = "SELECT * from carousel";
+    return $this->db->query($sql)->result();
+
+	}
 
 
 public function search_data($sql){

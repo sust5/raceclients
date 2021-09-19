@@ -502,6 +502,15 @@
 			echo json_encode($response);
 		}
 
+public function get_carousel(){
+			$r = $this->Apimodel->carousel();
+			$response=array('status'=>400,'message'=>'wrong Session');
+			if(sizeof($r)>0){
+				$response=array('status'=>200,'Result'=>$r);
+			}
+			echo json_encode($response);
+		}
+
 		public function notificationList(){
 
 			$fire_Uid= $_REQUEST['fire_uid'];
