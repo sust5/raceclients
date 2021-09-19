@@ -222,6 +222,21 @@ public function search_data($sql){
 		$q = $this->db->get();
 		return $q->result();
 	}
+	
+
+
+	public function find_installment_paid_percent($where){
+		$sql = "SELECT id_total_amt as total_amt, COUNT(cph_id) as total_paid,sum(cph_paid_amt) as total_paid FROM `client_payment_history` JOIN installment_details ON client_payment_history.cph_user_id=installment_details.id_user_id WHERE ".$where;
+		return $this->db->query($sql)->result();
+
+
+		$this->db->select("id_total_amt as total_amt, COUNT(cph_id) as total_paid,sum(cph_paid_amt) as total_paid");
+		$this->db->from("client_payment_history");
+
+		$this->db->where($where);
+		$q = $this->db->get();
+		return $q->result();
+	}
 
 	public function update_questions($where,$data){
 		$this->db->where($where);
@@ -303,15 +318,7 @@ public function search_data($sql){
 		$q = $this->db->get();
 		return $q->result();
 	}
-	// public function course_by_author($where){
-	// 	$this->db->select("*");
-	// 	$this->db->from("e_user");
-	// 	// $this->db->join('e_category', 'e_category.cat_id = e_book.fcat_id');
-	// 	// $this->db->join('e_author', 'e_author.a_id = e_book.fa_id');
-	// 	$this->db->where($where);
-	// 	$q = $this->db->get();
-	// 	return $q->result();
-	// }
+
 
 	public function author($where){
 		$this->db->select("*");

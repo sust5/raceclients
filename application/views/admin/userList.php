@@ -55,7 +55,8 @@ $this->load->view('admin/comman/header');
 									<td><?php  if( $use->account_type==1){echo "client";} else{echo "vendor";}?></td>
 									<td><?php echo $use->c_date; ?></td>
 									<td><?php echo $use->fire_uid; ?></td>
-									<td><a href="javaScript:void(0)"  onclick="status_change('<?php echo $use->id; ?>','user')" id="user<?php echo $use->id; ?>"><?php echo $use->status; ?></a>
+
+									<td><a href="javaScript:void(0)"  onclick="status_change('<?php echo $use->id; ?>','user')" id="user<?php echo $use->id; ?>"><?php if ( $use->status ==="enable") { echo "<div class='btn btn-primary'>enabled</div>";} else {echo "<div class='btn btn-danger'>disabled</div>";}?></a>
 										<input type="hidden" name="status_change" id="status_change_user<?php echo $use->id; ?>" value="<?php echo $use->status; ?>">
 									</td>
 								</tr>

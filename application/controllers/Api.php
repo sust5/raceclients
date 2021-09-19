@@ -636,6 +636,9 @@
 			$where='cph_user_id="'.$user_id[0]->id.'"';
 			$paid=$this->Apimodel->find_installment_paid($where);
 
+		    $where='cph_user_id="'.$user_id[0]->id.'"';
+			$paid_percent=$this->Apimodel->find_installment_paid_percent($where);
+
 			$where='user_id="'.$user_id[0]->id.'"';
 			$result_work_update=$this->Apimodel->find_work_update_info($where);
 
@@ -654,6 +657,7 @@
 			'work_percent_complete'=>$ResultWorkProgressInfo[0]->wp_percent_complete,
 			'work_percent_complete'=>$ResultWorkProgressInfo[0]->wp_percent_complete,
 			'total_paid'=>$paid[0]->total_paid,
+			'total_paid_percent'=>round(($paid_percent[0]->total_paid/$paid_percent[0]->total_amt)*100,2),
 			'total_installment'=>$installInfo[0]->id_total_installment,
 			'ResultWorkUpdate'=>$result_work_update
 

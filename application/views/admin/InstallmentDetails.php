@@ -22,7 +22,7 @@ $this->load->view('admin/comman/header');
 			</div>
 			<div class="col-sm-3">
 				<div class="btn-group float-sm-right">
-					<a href="<?php echo base_url();?>index.php/admin/addInstallment" class="btn btn-outline-primary waves-effect waves-light">Add installment</a>
+					<a href="<?php echo base_url();?>index.php/admin/addInstallment" class="btn btn-outline-primary waves-effect waves-light">Add Budget allocation</a>
 				</div>
 			</div>
 		</div>

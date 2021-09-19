@@ -1410,16 +1410,11 @@ class Admin extends CI_Controller{
 			}
 
 		}else{
-			// // 	//send notification to user_id;
-			// // 	$result = $this->Adminmodel->getFcm($user_id);
+			
 			$results = $this->Adminmodel->getuserFcm($user_id);
 			try{
 				for ($i = 0; $i < sizeof($results); $i++) {
 					$token = $results[$i]->fcm_key;
-					// $title = "public title";
-					// $body = "public message";
-					// $token ='d2nOoeorTNSYajaCkf21hl:APA91bHFsRrpHInM64ACSmt-CoZ9IJ0gzWrflog_1FAWunVt0dl8M4klaR1OtBaJioE1D2zpbVbsMIuvjmlbYgIMNR141jqcw-IYGPatlbLo9J5O9sjqRLQxQF4uQQYyUzik5m2VeI00';
-
 					$notification = array('title' =>$title , 'body' => $body, 'sound' => 'default', 'badge' => '1');
 					$arrayToSend = array('to' => $token, 'notification' => $notification,'priority'=>'high');
 					$json = json_encode($arrayToSend);

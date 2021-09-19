@@ -33,8 +33,8 @@ $this->load->view('admin/comman/header');
 							</div>
 							<div class="form-group">
 								<label for="input-1">User</label>
-								<input type="text"   class="form-control" name="username" id="input-1"  value=" <?php echo $userlist[0]->fullname; ?>" readonly>
-								<input type="text"   class="form-control" name="select_user" id="input-1"  value=" <?php echo $userlist[0]->id; ?>" hidden readonly>
+								<input type="text"   class="form-control" name="username" id="input-1"  value="<?php echo $userlist[0]->fullname; ?>" readonly>
+								<input type="text"   class="form-control" name="select_user" id="input-1"  value="<?php echo $userlist[0]->id;?>" hidden readonly>
 							</div>
 
 							<div class="form-group">
