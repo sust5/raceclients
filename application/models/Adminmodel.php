@@ -15,6 +15,25 @@ class Adminmodel extends CI_Model{
 		return $q->result();
 	}
 
+	public function carousel(){
+		$sql = "SELECT * from carousel";
+    	return $this->db->query($sql)->result();
+
+	}
+
+
+	public function update_text_data(){
+		$sql = "SELECT * from general_data limit 1";
+    	return $this->db->query($sql)->result();
+	}
+
+
+public function get_all_data($tablename){
+		$sql = "SELECT * from $tablename";
+    	return $this->db->query($sql)->result();
+	}
+
+
 
 
 	public function send_notification($user_id, $notification,$device_type,$serverKey) {
@@ -207,6 +226,18 @@ public function todayTransaction(){
 
 	public function delete_category($id){
 		$this->db->delete('e_category', array('cat_id' => $id));
+	}
+	public function social_media_data($id){
+		$this->db->delete('social_media', array('s_id' => $id));
+	}
+	public function delete_website_gallery($id){
+		$this->db->delete('website_gallery', array('wg_id' => $id));
+	}
+	public function delete_offer($id){
+		$this->db->delete('offer', array('o_id' => $id));
+	}
+	public function delete_Carousel($id){
+		$this->db->delete('carousel', array('c_id' => $id));
 	}
 	public function delete_work_updates($id){
 		$this->db->delete('work_updates', array('u_id' => $id));

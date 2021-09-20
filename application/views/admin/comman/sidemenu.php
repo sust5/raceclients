@@ -102,6 +102,20 @@
         </a>
       </li>
 
+           <li>
+            <a href="" class="waves-effect">
+              <i class="fa fa-user"></i><span>Website</span>
+              <i class="fa fa-angle-right float-right"></i>
+            </a>
+            <ul class="sidebar-submenu">
+                <li><a href="<?php echo base_url();?>index.php/admin/carouselPage" class="waves-effect"><i class="fa fa-cogs"></i><span>carousel Images</span></a></li>
+                <li><a href="<?php echo base_url();?>index.php/admin/update_text"><i class="fa fa-list"></i> Update Text</a></li>
+                <li><a href="<?php echo base_url();?>index.php/admin/offer"><i class="fa fa-list"></i> Offer</a></li>
+                <li><a href="<?php echo base_url();?>index.php/admin/socialMedia"><i class="fa fa-list"></i> Social Media</a></li>
+                <li><a href="<?php echo base_url();?>index.php/admin/siteGallery"><i class="fa fa-list"></i> Gallery</a></li>
+           </ul>
+          </li>
+
       <li>
         <a href="<?php echo base_url();?>index.php/admin/logout" class="waves-effect">
           <i class="icon-power mr-2"></i><span>Logout</span>

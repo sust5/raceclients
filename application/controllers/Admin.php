@@ -76,6 +76,8 @@ class Admin extends CI_Controller{
 		$data['categorydata'] = $this->Adminmodel->category_list();
 		$this->load->view("admin/categorylist",$data);
 	}
+
+
 	public function courselist(){
 		$data['settinglist'] = $this->Adminmodel->settings_data();
 		$data['coursedata'] = $this->Adminmodel->course_list();
@@ -717,6 +719,27 @@ class Admin extends CI_Controller{
 			echo json_encode($res);exit;
 		}
 	}
+public function saveGeneralData(){
+		$g_id = $_POST['id'];
+		$input_title = $_POST['input_title'];
+		$input_description = $_POST['input_description'];
+		$input_address = $_POST['input_address'];
+
+		$data = array(
+			'g_title' => $input_title,
+			'g_desc' => $input_description,
+			'g_url' => $input_address,
+		);
+		$res_id=$this->Adminmodel->update_data("general_data","g_id",$g_id,$data);
+
+		if($res_id){
+			$res=array('status'=>'200','msg'=>'Author added successfully.','id'=>$res_id);
+			echo json_encode($res);exit;
+		}else{
+			$res=array('status'=>'400','msg'=>'fail');
+			echo json_encode($res);exit;
+		}
+	}
 
 	public function editauthor(){
 
@@ -757,10 +780,6 @@ class Admin extends CI_Controller{
 			echo json_encode($res);exit;
 		}
 	}
-
-
-	/*==========================End Authors==========================*/
-
 
 	/*============================Books===================================*/
 
@@ -908,6 +927,38 @@ class Admin extends CI_Controller{
 		$this->load->view("admin/settings",$data);
 	}
 
+	public function carouselPage(){
+		$data['settinglist'] = $this->Adminmodel->settings_data();
+		$data['cList'] = $this->Adminmodel->carousel();
+	
+		$this->load->view("admin/carousel",$data);
+	}
+
+	public function socialMedia(){
+		$data['settinglist'] = $this->Adminmodel->settings_data();
+		$data['sm_list'] = $this->Adminmodel->get_all_data("social_media");
+		$this->load->view("admin/socialMedia",$data);
+	}
+
+	public function siteGallery(){
+		$data['settinglist'] = $this->Adminmodel->settings_data();
+		$data['wg_list'] = $this->Adminmodel->get_all_data("website_gallery");
+		$this->load->view("admin/siteGallery",$data);
+	}
+
+	public function offer(){
+		$data['settinglist'] = $this->Adminmodel->settings_data();
+		$data['cList'] = $this->Adminmodel->get_all_data("offer");
+	
+		$this->load->view("admin/offerPage",$data);
+	}
+
+	public function update_text(){
+		$data['settinglist'] = $this->Adminmodel->settings_data();
+		$data['g_text'] = $this->Adminmodel->update_text_data();
+		$this->load->view("admin/update_text",$data);
+	}
+
 	public function savesetting(){
 		$app_name=$_POST['app_name'];
 		$app_image_logo=$_FILES['app_image']['name'];
@@ -1013,6 +1064,16 @@ class Admin extends CI_Controller{
 		}
 		elseif ($tablename=='vendor_payment') {
 			$this->Adminmodel->delete_vendor_payment($id);
+		}elseif ($tablename=='carousel') {
+			$this->Adminmodel->delete_Carousel($id);
+		}elseif ($tablename=='offer') {
+			$this->Adminmodel->delete_offer($id);
+		}
+		elseif ($tablename=='website_gallery') {
+			$this->Adminmodel->delete_website_gallery($id);
+		}
+		elseif ($tablename=='social_media') {
+			$this->Adminmodel->social_media_data($id);
 		}
 		return true;
 	}
@@ -1021,6 +1082,10 @@ class Admin extends CI_Controller{
 		$data['settinglist'] = $this->Adminmodel->settings_data();
 		$data['userList'] = $this->Adminmodel->userlist();
 		$this->load->view("admin/notification",$data);
+	}
+	public function addSocialLink(){
+		$data['settinglist'] = $this->Adminmodel->settings_data();
+		$this->load->view("admin/addSocialLink.php",$data);
 	}
 	public function gallery(){
 		$data['settinglist'] = $this->Adminmodel->settings_data();
@@ -1217,6 +1282,124 @@ class Admin extends CI_Controller{
 				'g_work_id'=>$work_id
 			);
 			$res_id=$this->Adminmodel->add_data($data,'gallery');
+			if($res_id){
+				$res=array('status'=>'200','msg'=>' successfull.','id'=>$res_id);
+				echo json_encode($res);exit;
+			}else{
+				$res=array('status'=>'400','msg'=>'fail');
+				echo json_encode($res);
+				exit;
+			}
+			//end inter record in the table
+		}
+	}
+	public function saveCarousel(){
+		//  uploading the file
+		$config['upload_path']          =  APPPATH .'../assets/images/carousel/';
+		$config['allowed_types']        = 'gif|jpg|png';
+		$config['max_width']            = 1024;
+		$config['max_height']           = 768;
+		$this->load->library('upload', $config);
+		$this->upload->initialize($config);
+		$basename = md5(date('H:i:s:u')).$_FILES['userfile']['name'];
+
+		if(move_uploaded_file($_FILES['userfile']['tmp_name'],$config['upload_path'].$basename)){
+			// inter record in the table
+			$title=$_POST['title'];
+			$data = array(
+				'c_title'=>$title,
+				'c_image_url'=>"/assets/images/carousel/".$basename
+			);
+			$res_id=$this->Adminmodel->add_data($data,'carousel');
+			if($res_id){
+				$res=array('status'=>'200','msg'=>' successfull.','id'=>$res_id);
+				echo json_encode($res);exit;
+			}else{
+				$res=array('status'=>'400','msg'=>'fail');
+				echo json_encode($res);
+				exit;
+			}
+			//end inter record in the table
+		}
+	}
+	public function saveSocialLink(){
+			// inter record in the table
+			$input_name=$_POST['input_name'];
+			$input_f_color=$_POST['input_f_color'];
+			$input_b_color=$_POST['input_b_color'];
+			$icon=$_POST['input_icon'];
+			$input_address=$_POST['input_address'];
+
+			$data = array(
+				's_name'=>$input_name,
+				'front_color'=>$input_f_color,
+				'back_color	'=>$input_b_color,
+				's_link'=>$input_address,
+				'icon'=>$icon
+			);
+			$res_id=$this->Adminmodel->add_data($data,'social_media');
+			if($res_id){
+				$res=array('status'=>'200','msg'=>' successfull.','id'=>$res_id);
+				echo json_encode($res);exit;
+			}else{
+				$res=array('status'=>'400','msg'=>'fail');
+				echo json_encode($res);
+				exit;
+			}
+			//end inter record in the table
+	}
+
+	public function saveWG(){
+		//  uploading the file
+		$config['upload_path']          =  APPPATH .'../assets/images/siteGallery/';
+		$config['allowed_types']        = 'gif|jpg|png';
+		$config['max_width']            = 1024;
+		$config['max_height']           = 768;
+		$this->load->library('upload', $config);
+		$this->upload->initialize($config);
+		$basename = md5(date('H:i:s:u')).$_FILES['userfile']['name'];
+
+		if(move_uploaded_file($_FILES['userfile']['tmp_name'],$config['upload_path'].$basename)){
+			// inter record in the table
+			$title=$_POST['title'];
+			$data = array(
+				'wg_title'=>$title,
+				'wg_url'=>"/assets/images/siteGallery/".$basename
+			);
+			$res_id=$this->Adminmodel->add_data($data,'website_gallery');
+			if($res_id){
+				$res=array('status'=>'200','msg'=>' successfull.','id'=>$res_id);
+				echo json_encode($res);exit;
+			}else{
+				$res=array('status'=>'400','msg'=>'fail');
+				echo json_encode($res);
+				exit;
+			}
+			//end inter record in the table
+		}
+	}
+		public function saveOffer(){
+		//  uploading the file
+		$config['upload_path']          =  APPPATH .'../assets/images/offer/';
+		$config['allowed_types']        = 'gif|jpg|png';
+		$config['max_width']            = 1024;
+		$config['max_height']           = 768;
+		$this->load->library('upload', $config);
+		$this->upload->initialize($config);
+		$basename = md5(date('H:i:s:u')).$_FILES['userfile']['name'];
+
+		if(move_uploaded_file($_FILES['userfile']['tmp_name'],$config['upload_path'].$basename)){
+			// inter record in the table
+			$o_title=$_POST['o_title'];
+			$o_desc=$_POST['o_desc'];
+			$o_url=$_POST['o_url'];
+			$data = array(
+				'o_title'=>$o_title,
+				'o_desc'=>$o_desc,
+				'o_url'=>$o_url,
+				'o_image_url'=>"/assets/images/offer/".$basename
+			);
+			$res_id=$this->Adminmodel->add_data($data,'offer');
 			if($res_id){
 				$res=array('status'=>'200','msg'=>' successfull.','id'=>$res_id);
 				echo json_encode($res);exit;
