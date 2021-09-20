@@ -105,6 +105,7 @@ $db['default'] = array(
 // 	'dbdriver' => 'mysqli',
 // 	'dbprefix' => '',
 // 	'pconnect' => FALSE,
+
 // 	'db_debug' => (ENVIRONMENT !== 'development'),
 // 	'cache_on' => FALSE,
 // 	'cachedir' => '',
