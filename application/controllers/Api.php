@@ -502,13 +502,60 @@
 			echo json_encode($response);
 		}
 
-public function get_carousel(){
+		public function get_carousel(){
 			$r = $this->Apimodel->carousel();
-			$response=array('status'=>400,'message'=>'wrong Session');
+			$response=array('status'=>400,'message'=>'something went wrong');
 			if(sizeof($r)>0){
 				$response=array('status'=>200,'Result'=>$r);
 			}
 			echo json_encode($response);
+		}
+
+		public function get_website_gallery(){
+			$r = $this->Apimodel->get_website_gallery();
+			$response=array('status'=>400,'message'=>'something went wrong');
+				if(sizeof($r)>0){
+				$response=array('status'=>200,'Result'=>$r);
+							echo json_encode($r);
+			}else{
+							echo json_encode($response);
+
+			}
+		}
+
+		public function get_general_data(){
+			$r = $this->Apimodel->get_general_data();
+			$response=array('status'=>400,'message'=>'something went wrong');
+			if(sizeof($r)>0){
+				$response=array('status'=>200,'Result'=>$r);
+							echo json_encode($r);
+			}else{
+							echo json_encode($response);
+
+			}
+		}
+
+		public function get_offer(){
+			$r = $this->Apimodel->get_offer();
+			$response=array('status'=>400,'message'=>'something went wrong');
+				if(sizeof($r)>0){
+				$response=array('status'=>200,'Result'=>$r);
+							echo json_encode($r);
+			}else{
+							echo json_encode($response);
+
+			}
+		}
+
+			public function get_social_media(){
+			$r = $this->Apimodel->get_social_media();
+			$response=array('status'=>400,'message'=>'something went wrong');
+			if(sizeof($r)>0){
+				$response=array('status'=>200,'Result'=>$r);
+							echo json_encode($r);
+			}else{
+							echo json_encode($response);
+			}
 		}
 
 		public function notificationList(){
