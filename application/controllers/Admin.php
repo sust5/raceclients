@@ -22,6 +22,20 @@ class Admin extends CI_Controller{
 		}
 	}
 
+	public function faqPage(){
+		$data['settinglist'] = $this->Adminmodel->settings_data();
+		$data['faqdata'] = $this->Adminmodel->get_all_data("faq");
+		$this->load->view("admin/faqPage",$data);
+	}
+	public function reviewPage(){
+		$data['settinglist'] = $this->Adminmodel->settings_data();
+		$data['reviewdata'] = $this->Adminmodel->get_all_data("review");
+		$this->load->view("admin/reviewPage",$data);
+	}
+
+
+
+
 	public function adminlogin(){
 		$email= $this->input->post('email');
 		$password= $this->input->post('password');
@@ -109,6 +123,11 @@ class Admin extends CI_Controller{
 	public function addcategory(){
 		$data['settinglist'] = $this->Adminmodel->settings_data();
 		$this->load->view("admin/addcategory",$data);
+	}
+
+	public function addFaq(){
+		$data['settinglist'] = $this->Adminmodel->settings_data();
+		$this->load->view("admin/addFaq",$data);
 	}
 	public function edit_details_installment(){
 		$data['settinglist'] = $this->Adminmodel->settings_data();
@@ -515,6 +534,34 @@ class Admin extends CI_Controller{
 			}
 		}
 	}
+
+
+
+
+		public function saveFaq(){
+		$questions = $_POST['questions'];
+		$answers = $_POST['answers'];
+		
+			$data = array(
+				'f_question' => $questions,
+				'f_answer' => $answers
+			);
+			$res_id=$this->Adminmodel->addFaq($data);
+
+			if($res_id){
+				$res=array('status'=>'200','msg'=>'New user added Sucessfully',
+				'id'=>$res_id);
+				echo json_encode($res);
+			}else{
+				$res=array('status'=>'400','msg'=>'Please try again');
+				echo json_encode($res);
+			}
+		}
+
+
+
+
+
 	public function userlist(){
 		$data['settinglist'] = $this->Adminmodel->settings_data();
 		$data['userlist'] = $this->Adminmodel->userlist();
@@ -1074,6 +1121,12 @@ public function saveGeneralData(){
 		}
 		elseif ($tablename=='social_media') {
 			$this->Adminmodel->social_media_data($id);
+		}
+		elseif ($tablename=='faq') {
+			$this->Adminmodel->delete_faq($id);
+		}
+		elseif ($tablename=='review') {
+			$this->Adminmodel->delete_review($id);
 		}
 		return true;
 	}

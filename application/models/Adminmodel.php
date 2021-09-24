@@ -227,11 +227,17 @@ public function todayTransaction(){
 	public function delete_category($id){
 		$this->db->delete('e_category', array('cat_id' => $id));
 	}
+	public function delete_review($id){
+		$this->db->delete("review", array('r_id' => $id));
+	}
 	public function social_media_data($id){
 		$this->db->delete('social_media', array('s_id' => $id));
 	}
 	public function delete_website_gallery($id){
 		$this->db->delete('website_gallery', array('wg_id' => $id));
+	}
+	public function delete_faq($id){
+		$this->db->delete('faq', array('f_id' => $id));
 	}
 	public function delete_offer($id){
 		$this->db->delete('offer', array('o_id' => $id));
@@ -333,6 +339,11 @@ public function todayTransaction(){
 
 	public function add_user($data){
 		$query = $this->db->insert('e_user',$data);
+		return $this->db->insert_id();
+	}
+
+	public function addFaq($data){
+		$query = $this->db->insert('faq',$data);
 		return $this->db->insert_id();
 	}
 

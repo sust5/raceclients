@@ -104,7 +104,7 @@
 
            <li>
             <a href="" class="waves-effect">
-              <i class="fa fa-user"></i><span>Website</span>
+              <i class="fa fa-user"></i><span>Mobile App</span>
               <i class="fa fa-angle-right float-right"></i>
             </a>
             <ul class="sidebar-submenu">
@@ -113,6 +113,9 @@
                 <li><a href="<?php echo base_url();?>index.php/admin/offer"><i class="fa fa-list"></i> Offer</a></li>
                 <li><a href="<?php echo base_url();?>index.php/admin/socialMedia"><i class="fa fa-list"></i> Social Media</a></li>
                 <li><a href="<?php echo base_url();?>index.php/admin/siteGallery"><i class="fa fa-list"></i> Gallery</a></li>
+                <li><a href="<?php echo base_url();?>index.php/admin/faqPage"><i class="fa fa-list"></i> FAQ</a></li>
+<li><a href="<?php echo base_url();?>index.php/admin/reviewPage"><i class="fa fa-list"></i> Review</a></li>
+
            </ul>
           </li>
 

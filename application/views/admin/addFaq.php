@@ -9,16 +9,16 @@ $this->load->view('admin/comman/header');
 		<!-- Breadcrumb-->
 		<div class="row pt-2 pb-2">
 			<div class="col-sm-9">
-				<h4 class="page-title">Add User</h4>
+				<h4 class="page-title">Add work</h4>
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="<?php echo base_url();?>index.php/admin/dashboard">Dashboard</a></li>
-					<li class="breadcrumb-item"><a href="javaScript:void();">Users</a></li>
-					<li class="breadcrumb-item active" aria-current="page">Add User</li>
+					<li class="breadcrumb-item"><a href="javaScript:void();">Work</a></li>
+					<li class="breadcrumb-item active" aria-current="page">Add work</li>
 				</ol>
 			</div>
 			<div class="col-sm-3">
 				<div class="btn-group float-sm-right">
-					<a href="<?php echo base_url();?>index.php/admin/userlist" class="btn btn-outline-primary waves-effect waves-light">UserList</a>
+					<a href="<?php echo base_url();?>index.php/admin/faqPage" class="btn btn-outline-primary waves-effect waves-light">FAQ List</a>
 				</div>
 			</div>
 		</div>
@@ -27,40 +27,19 @@ $this->load->view('admin/comman/header');
 			<div class="col-lg-10 mx-auto">
 				<div class="card">
 					<div class="card-body">
-						<div class="card-title">Add User
+						<div class="card-title">Add work
 							<form id="user_form"  enctype="multipart/form-data">
-
 								<div class="form-group">
-									<label for="input-1">FullName</label>
-									<input type="text" required value="" class="form-control" name="input_name" id="input-1" >
+									<label for="input-1">Question</label>
+									<textarea required value="" class="form-control" name="questions" id="input-1"> Enter your question?</textarea> 
+								</div>
+								<div class="form-group">
+									<label for="input-1">Answers</label>
+									<textarea required value="" class="form-control" name="answers" id="input-1">Your answer here</textarea> 
 								</div>
 
 								<div class="form-group">
-									<label for="input-1">Email</label>
-									<input type="text" required value="" class="form-control" name="input_email" id="input-1" >
-								</div>
-
-									<div class="form-group">
-									<label for="input-4"> Account Type</label>
-									<!-- DropDown -->
-									<select name="input_account_type" required  class="form-control">
-										<option value="">Select Account</option>
-										
-											<option required value="1">Client</option>
-											<option required value="2">Vendor</option>            
-										</select>
-									</div>
-
-
-
-								<div class="form-group">
-									<label for="input-1">Password</label>
-									<input type="Password" required value="" class="form-control" name="input_password" id="input-1" >
-								</div>
-
-
-								<div class="form-group">
-									<button type="button" onclick="saveuser()" class="btn btn-primary shadow-primary px-5">Save</button>
+									<button type="button" onclick="savefaq()" class="btn btn-primary shadow-primary px-5">Save</button>
 								</div>
 
 							</form>
@@ -76,13 +55,13 @@ $this->load->view('admin/comman/header');
 			?>
 			<script type="text/javascript">
 
-				function saveuser(){
+				function savefaq(){
 
 					$("#dvloader").show();
 					var formData = new FormData($("#user_form")[0]);
 					$.ajax({
 						type:'POST',
-						url:'<?php echo base_url(); ?>index.php/admin/saveuser',
+						url:'<?php echo base_url(); ?>index.php/admin/saveFaq',
 						data:formData,
 						cache:false,
 						contentType: false,
@@ -100,7 +79,7 @@ $this->load->view('admin/comman/header');
 						},
 						error: function(XMLHttpRequest, textStatus, errorThrown) {
 							$("#dvloader").hide();
-							toastr.error(errorThrown.msg,'failed');         
+							toastr.error(errorThrown.msg,'failed');
 						}
 					});
 				}
